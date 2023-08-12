@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Grid</title>
+    <style>
+        body {
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            width: 100%;
+        }
+
+        .capture-container {
+            grid-row: 1;
+            display: grid;
+            background-color: #ffffff;
+            padding-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .title-container {
+            grid-row: 1;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        #title {
+            width: 99%;
+            font-size: 32px;
+            font-family: sans-serif;
+            font-weight: bold;
+            border: none;
+        }
+
+        .board-key-legend-container {
+            grid-row: 2;
+            display: grid;
+        }
+
+        .board {
+            grid-row: 1;
+            grid-column: 1;
+            display: grid;
+            grid-template-rows: repeat(9, 60px);
+            grid-template-columns: repeat(13, 60px);
+            width: 800px;
+            height: 560px;
+            background-color: #444444;
+            border: 4px solid black;
+            border-radius: 10px;
+        }
+
+        .cell {
+            width: 60px;
+            height: 60px;
+            background-color: #444444;
+        }
+
+        .well {
+            width: 46px;
+            height: 46px;
+            background-color: #ffffff;
+            border: 4px solid black;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .well:hover {
+            filter: brightness(85%);
+        }
+
+        .row-label,
+        .column-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 16px;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        .row-label {
+            grid-column: 1;
+            margin-bottom: 8px;
+            margin-left: 24px;
+        }
+
+        .column-label {
+            grid-row: 1;
+            margin-top: 24px;
+            margin-right: 6px;
+        }
+
+        .key-legend-container {
+            grid-row: 1;
+            grid-column: 2;
+        }
+
+        .key-container {
+            margin-left: 6px;
+        }
+
+        .key-container h2 {
+            margin: 0;
+            padding-bottom: 10px;
+            padding-right: 10px;
+            font-family: sans-serif;
+        }
+
+        .legend-container {
+            padding: 10px;
+        }
+
+        .legend {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+        }
+
+        .legend-color {
+            width: 35px;
+            height: 35px;
+            border: 2px solid;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .legend-entry {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .legend-entry textarea {
+            width: 50px;
+            padding: 5px;
+            border: 0px;
+            font-size: 14px;
+            font-family: sans-serif;
+        }
+
+        .button-container {
+            grid-row: 2;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 2px solid black;
+        }
+
+        #color-picker {
+            display: none;
+        }
+
+        #color-picker-button {
+            color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="capture-container">
+        <div class="title-container">
+            <input type="text" id="title" placeholder="Title" />
+        </div>
+
+        <div class="board-key-legend-container">
+            <div class="board">
+                <div class="column-label"></div>
+                <div class="column-label">1</div>
+                <div class="column-label">2</div>
+                <div class="column-label">3</div>
+                <div class="column-label">4</div>
+                <div class="column-label">5</div>
+                <div class="column-label">6</div>
+                <div class="column-label">7</div>
+                <div class="column-label">8</div>
+                <div class="column-label">9</div>
+                <div class="column-label">10</div>
+                <div class="column-label">11</div>
+                <div class="column-label">12</div>
+
+                <div class="row-label">A</div>
+                <div class="cell" data-row="A" data-column="1">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="A" data-column="2">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="A" data-column="3">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="A" data-column="4">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="A" data-column="5">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="A" data-column="6">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="A" data-column="7">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="A" data-column="8">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="A" data-column="9">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="A" data-column="10">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="A" data-column="11">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="A" data-column="12">
+                    <div class="well"></div>
+                </div>
+
+                <div class="row-label">B</div>
+                <div class="cell" data-row="B" data-column="1">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="B" data-column="2">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="B" data-column="3">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="B" data-column="4">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="B" data-column="5">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="B" data-column="6">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="B" data-column="7">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="B" data-column="8">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="B" data-column="9">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="B" data-column="10">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="B" data-column="11">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="B" data-column="12">
+                    <div class="well"></div>
+                </div>
+
+                <div class="row-label">C</div>
+                <div class="cell" data-row="C" data-column="1">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="C" data-column="2">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="C" data-column="3">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="C" data-column="4">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="C" data-column="5">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="C" data-column="6">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="C" data-column="7">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="C" data-column="8">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="C" data-column="9">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="C" data-column="10">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="C" data-column="11">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="C" data-column="12">
+                    <div class="well"></div>
+                </div>
+
+                <div class="row-label">D</div>
+                <div class="cell" data-row="D" data-column="1">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="D" data-column="2">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="D" data-column="3">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="D" data-column="4">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="D" data-column="5">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="D" data-column="6">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="D" data-column="7">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="D" data-column="8">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="D" data-column="9">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="D" data-column="10">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="D" data-column="11">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="D" data-column="12">
+                    <div class="well"></div>
+                </div>
+
+                <div class="row-label">E</div>
+                <div class="cell" data-row="E" data-column="1">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="E" data-column="2">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="E" data-column="3">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="E" data-column="4">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="E" data-column="5">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="E" data-column="6">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="E" data-column="7">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="E" data-column="8">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="E" data-column="9">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="E" data-column="10">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="E" data-column="11">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="E" data-column="12">
+                    <div class="well"></div>
+                </div>
+
+                <div class="row-label">F</div>
+                <div class="cell" data-row="F" data-column="1">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="F" data-column="2">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="F" data-column="3">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="F" data-column="4">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="F" data-column="5">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="F" data-column="6">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="F" data-column="7">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="F" data-column="8">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="F" data-column="9">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="F" data-column="10">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="F" data-column="11">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="F" data-column="12">
+                    <div class="well"></div>
+                </div>
+
+                <div class="row-label">G</div>
+                <div class="cell" data-row="G" data-column="1">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="G" data-column="2">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="G" data-column="3">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="G" data-column="4">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="G" data-column="5">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="G" data-column="6">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="G" data-column="7">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="G" data-column="8">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="G" data-column="9">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="G" data-column="10">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="G" data-column="11">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="G" data-column="12">
+                    <div class="well"></div>
+                </div>
+
+                <div class="row-label">H</div>
+                <div class="cell" data-row="H" data-column="1">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="H" data-column="2">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="H" data-column="3">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="H" data-column="4">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="H" data-column="5">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="H" data-column="6">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="H" data-column="7">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="H" data-column="8">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="H" data-column="9">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="H" data-column="10">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="H" data-column="11">
+                    <div class="well"></div>
+                </div>
+                <div class="cell" data-row="H" data-column="12">
+                    <div class="well"></div>
+                </div>
+            </div>
+
+            <div class="key-legend-container">
+                <div class="key-container">
+                    <h2>Key</h2>
+                </div>
+
+                <div class="legend-container">
+                    <div class="legend"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button id="save-button">Save as PNG</button>
+        <button id="reset-button">Reset Board</button>
+        <button id="fill-button">Fill Board</button>
+        <input type="color" id="color-picker" value="#ff0000">
+        <button id="color-picker-button" style="background-color: #ff0000;">Pick Color</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script>
+        const wells = document.querySelectorAll('.well')
+        const legend = document.querySelector('.legend')
+        const colorPicker = document.getElementById('color-picker')
+        colorPicker.value = '#ff0000'
+
+        let colorCounts = {}
+
+        wells.forEach((well) => {
+            well.style.backgroundColor = '#ffffff'
+        })
+
+        wells.forEach((well) => {
+            well.addEventListener('click', () => {
+                const wellColor = rgbToHex(well.style.backgroundColor)
+                const pickedColor = colorPicker.value
+                
+                if (wellColor !== pickedColor) {
+                    if (pickedColor !== '#ffffff') {
+                        addColor(pickedColor)
+                    }
+
+                    if (wellColor !== '#ffffff') {
+                        removeColor(wellColor)
+                    }
+                }
+
+                well.style.backgroundColor = pickedColor
+            })
+        })
+
+        /* Save Button */
+
+        const saveButton = document.getElementById('save-button')
+
+        saveButton.addEventListener('click', () => {
+            const capture = document.querySelector('.capture-container')
+
+            domtoimage.toPng(capture)
+                .then(function (dataUrl) {
+                    const link = document.createElement('a')
+                    link.href = dataUrl
+                    link.download = 'grid.png'
+                    link.click()
+                })
+                .catch(function (error) {
+                    console.error('Error capturing screenshot:', error)
+                })
+
+        })
+
+        /* Reset Button */
+
+        const resetButton = document.getElementById('reset-button')
+
+        resetButton.addEventListener('click', () => {
+            colorCounts = {}
+            legend.innerHTML = ''
+
+            wells.forEach((well) => {
+                well.style.backgroundColor = '#ffffff'
+            })
+        })
+
+        /* Fill Button */
+
+        const fillButton = document.getElementById('fill-button')
+
+        fillButton.addEventListener('click', () => {
+            const selectedColor = colorPicker.value
+            colorCounts = {}
+            legend.innerHTML = ''
+
+            wells.forEach((hole) => {
+                hole.style.backgroundColor = selectedColor
+            })
+
+            if (selectedColor !== '#ffffff') {
+                addLegendEntry(selectedColor)
+            }
+        })
+
+        /* Color Picker */
+
+        const colorPickerButton = document.getElementById('color-picker-button')
+
+        colorPickerButton.addEventListener('click', () => {
+            colorPicker.click()
+        })
+
+        colorPicker.addEventListener('input', () => {
+            const selectedColor = colorPicker.value
+            colorPickerButton.style.backgroundColor = selectedColor
+        })
+
+        /* Functions */
+
+        function addColor(color) {
+            if (colorCounts[color]) {
+                colorCounts[color] += 1
+            } else {
+                colorCounts[color] = 1
+                addLegendEntry(color)
+            }
+        }
+
+        function removeColor(color) {
+            if (colorCounts[color] == 1) {
+                delete colorCounts[color]
+                removeLegendEntry(color)
+            } else {
+                colorCounts[color] -= 1
+            }
+        }
+
+        function addLegendEntry(color) {
+            const colorBox = document.createElement('div')
+            colorBox.style.backgroundColor = color
+            colorBox.classList.add('legend-color')
+
+            const textBox = document.createElement('textarea')
+            textBox.value = 'Legend'
+
+            const legendEntry = document.createElement('div')
+            legendEntry.classList.add('legend-entry')
+            legendEntry.appendChild(colorBox)
+            legendEntry.appendChild(textBox)
+
+            legend.appendChild(legendEntry)
+        }
+
+        function removeLegendEntry(color) {
+            for (var i = 0; i < legend.childNodes.length; i++) {
+                const entry = legend.childNodes[i];
+                const entryColor = rgbToHex(entry.childNodes[0].style.backgroundColor);
+                
+                if (entryColor === color) {
+                    entry.remove()
+                }
+            }
+        }
+
+        /* https://stackoverflow.com/questions/1740700/how-to-get-hex-color-value-rather-than-rgb-value */
+        function rgbToHex(rgb) {
+            return `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`
+        }
+    </script>
+</body>
+
+</html>
